@@ -1,0 +1,25 @@
+import numpy as np
+import pandas as pd
+
+# result=np.fromfile(r'C:\Users\mosta\Downloads\data\crime.csv',dtype=str,sep="\t")
+# result=np.genfromtxt(r'C:\Users\mosta\Downloads\data\crime.csv', dtype= None)
+data = pd.read_csv(r'C:\Users\mosta\Downloads\data\crime.csv', encoding = "ISO-8859-1").to_numpy()
+
+freq = {}
+index = 0
+for r in data:
+    for c in r:
+        key = frozenset({c})
+        if key not in freq.keys():
+            freq[key] = list()
+        freq[key].append(index)
+    index += 1
+found = True
+freq_itemset = {}
+k=0
+freq_itemset[0] = freq
+while found:
+    found = False
+    for key1 in freq_itemset[0]:
+        for key2 in freq_itemset[k]:
+            if freq_itemset[]
