@@ -1,25 +1,29 @@
 import numpy as np
 import pandas as pd
+from orangecontrib.associate.fpgrowth import *
+data = pd.read_csv(r'C:\Users\mosta\Downloads\data\crime.csv', encoding = "ISO-8859-1").iloc[0:200].to_numpy()
 
-# result=np.fromfile(r'C:\Users\mosta\Downloads\data\crime.csv',dtype=str,sep="\t")
-# result=np.genfromtxt(r'C:\Users\mosta\Downloads\data\crime.csv', dtype= None)
-data = pd.read_csv(r'C:\Users\mosta\Downloads\data\crime.csv', encoding = "ISO-8859-1").to_numpy()
 
-freq = {}
-index = 0
+labels = {}
+label = 0
+for i in range(data.shape[0]):
+    for j in range(data.shape[1]):
+        v = data[i][j]
+        if v not in labels.keys():
+            labels[v] = label
+            label += 1
+        data[i][j] = labels[v]
+
 for r in data:
-    for c in r:
-        key = frozenset({c})
-        if key not in freq.keys():
-            freq[key] = list()
-        freq[key].append(index)
-    index += 1
-found = True
-freq_itemset = {}
-k=0
-freq_itemset[0] = freq
-while found:
-    found = False
-    for key1 in freq_itemset[0]:
-        for key2 in freq_itemset[k]:
-            if freq_itemset[]
+    print(r)
+T = [[0, 1, 2, 3],
+[1, 10, 2, 30],
+[2, 3, 1, 25],
+[2, 3, 1, 25],
+[2, 3, 1, 25]]
+from scipy.sparse import lil_matrix
+sdata = lil_matrix(data)
+itemsets = list(frequent_itemsets(sdata[2:,:], 1))
+# itemsets = list(frequent_itemsets(T, 2))
+for a in itemsets:
+     print(a)
